@@ -44,4 +44,21 @@ public class Elevador {
             andarAtual = 0;
         }
     }
+
+    public void iniciarMovimentacao(ElevadorInterface interfaceElevador) {
+        while (!pilhaDeAndares.isEmpty()) {
+            int proximoAndar = (int) pilhaDeAndares.pop();
+            try {
+                Thread.sleep(1000); // Delay para simular a movimentação
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Movendo-se para o andar " + proximoAndar + "...");
+            andarAtual = proximoAndar;
+            interfaceElevador.atualizarElevador(andarAtual);
+            System.out.println("Parado no andar " + andarAtual);
+        }
+        retornarTerreo();
+    }
+    
 }
