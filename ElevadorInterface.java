@@ -107,6 +107,10 @@ public class ElevadorInterface extends JFrame {
         new Thread(() -> elevador.iniciarMovimentacao(this)).start();
     }
 
+    /**
+     * Utilizado dentro da classe Elevador
+     * @param andar
+     */
     public void atualizarElevador(int andar) {
         int alturaPainel = elevadorPanel.getHeight();
         int alturaAndar = alturaPainel / 10;
@@ -130,6 +134,14 @@ public class ElevadorInterface extends JFrame {
             };
             timer.schedule(task, 500); // Animação suave entre andares
         });
+    }
+
+    public void statusAndaresFaltantes() {
+        statusArea.append("Andares restantes: " + elevador.toString() + "\n");
+    }
+
+    public void statusAndarParado(int andar) {
+        statusArea.append("Parado no andar: " + andar + "\n");
     }
 
     public static void main(String[] args) {
