@@ -20,6 +20,10 @@ public class Elevador {
         }
     }
 
+    /**
+     * @deprecated
+     * Utilizado apenas em linha de comando
+     */
     public void iniciarMovimentacao() {
         while (!pilhaDeAndares.isEmpty()) {
             int proximoAndar = (int) pilhaDeAndares.pop();
@@ -45,6 +49,10 @@ public class Elevador {
         }
     }
 
+    /**
+     * Inicia a movimentação do elevador por threads dentro da interface gráfica
+     * @param interfaceElevador
+     */
     public void iniciarMovimentacao(ElevadorInterface interfaceElevador) {
         while (!pilhaDeAndares.isEmpty()) {
             int proximoAndar = (int) pilhaDeAndares.pop();
@@ -56,9 +64,25 @@ public class Elevador {
             System.out.println("Movendo-se para o andar " + proximoAndar + "...");
             andarAtual = proximoAndar;
             interfaceElevador.atualizarElevador(andarAtual);
+            interfaceElevador.statusAndarParado(andarAtual);
             System.out.println("Parado no andar " + andarAtual);
+            interfaceElevador.statusAndaresFaltantes();
+        }
+
+        //Adicionado para resolver problema do elevador não mover no ultimo valor da pilha
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         retornarTerreo();
+        interfaceElevador.atualizarElevador(andarAtual);
+        interfaceElevador.statusAndarParado(andarAtual);
+
     }
-    
+
+    @Override
+    public String toString() {
+        return this.pilhaDeAndares.toString();
+    }
 }
